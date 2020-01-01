@@ -34,23 +34,53 @@ This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
 library(add2grViz)
+library(magrittr)
+library(tidyverse)
 ## basic example code
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
-
-```{r cars}
-summary(cars)
+```{r}
+link_plus <-
+    "宣德皇后 -> 于谦 [label = '提拔']
+朱祁镇 -> 于谦 [label = '杀死']
+朱棣 -> 朱高煦
+"
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date.
-
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
+```{r}
+output <-
+    add2grViz::ming_kings %>%
+    mutate(block = map2_chr(text, name, add_content_subgraph)) %>%
+    mutate(tag = LETTERS[1:nrow(.)],
+           add_func = map2_chr(tag, block, frame_subgraph)) %>%
+    summarise(text = str_flatten(add_func, "\n\n"),
+              links = str_flatten(name, " -> ")) %>%
+    mutate(add_heading = pmap_chr(list(text, links, link_plus), add_heading)) %>%
+    dplyr::pull()
 ```
 
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub!
+```{r}
+output_text <- 
+output %>%
+    str_replace("朱瞻基",
+                fixed("朱瞻基 [label = '朱瞻基\n蟋蟀天子']
+宣德皇后
+于谦 [label='当朝少保于谦']
+郑和下西洋")) %>%
+    str_replace("朱厚照", "朱厚照
+帖木儿帝国覆灭
+侠客风云传开始") %>%
+    str_replace("朱厚熜", "朱厚熜
+莫卧儿帝国建立")
+
+
+output_text %>% 
+    cat
+output_text %>% 
+    DiagrammeR::grViz()
+# 朱瞻基\n蟋蟀天子
+# \n 实现了，这个问题，也不影响
+```
+
 
 `r add2pkg::add_disclaimer("Jiaxiang Li")`

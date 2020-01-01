@@ -1,7 +1,7 @@
-
-
-
-
+#' Add the heading of the text
+#'
+#' @importFrom glue glue
+#' @export
 add_heading <- function(text = "",
                         links = "",
                         link_plus = "") {
@@ -25,24 +25,22 @@ add_heading <- function(text = "",
     )
 }
 
-
-
-add_content_subgraph <- function(text = NULL, name = NULL) {
-    if (is.null(text))
-        text = 1
-    if (is.null(name))
-        name = 1
+#' Add the content inside the subgraph
+#'
+#' @importFrom glue glue
+#' @export
+add_content_subgraph <- function(text = "", name = "") {
     glue::glue("label = '{text}'
   style = dashed
   rank = same
 
   {name}")
 }
-
-frame_subgraph <- function(tag = NULL, block) {
-    if (is.null(tag)) {
-        tag = 1
-    }
+#' Frame the subgraph
+#'
+#' @importFrom glue glue
+#' @export
+frame_subgraph <- function(tag = "", block) {
     glue::glue("subgraph cluster<<tag>>{
   <<block>>
 
