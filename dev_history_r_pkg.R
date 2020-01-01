@@ -5,8 +5,8 @@ library(devtools)
 use_git()
 
 library(devtools)
-use_build_ignore("dev_history_r_pkg.R")
-use_git_ignore("dev_history_r_pkg.R")
+usethis::use_build_ignore("dev_history_r_pkg.R")
+usethis::use_git_ignore("dev_history_r_pkg.R")
 use_roxygen_md()
 use_pipe()
 library(magrittr)
@@ -59,6 +59,14 @@ glue::glue("Add metadata
 ") %>% git2r::commit(message = .)
 
 
+
+git2r::remote_add(name = "origin",
+                  url = glue::glue("https://github.com/JiaxiangBU/{add2pkg::proj_name()}.git"))
+git2r::push(name = 'origin', refspec = "refs/heads/master", cred = git2r::cred_token(),
+            set_upstream = TRUE
+            # Only one
+            )
+
 # coding ------------------------------------------------------------------
 
 # add title
@@ -76,7 +84,7 @@ install()
 # commit
 
 git2r::add(path = ".")
-git2r::commit(message = "update README with examples, add the function of `theme_grey_and_red`, update dev history")
+git2r::commit(message = "")
 
 # release -----------------------------------------------------------------
 
