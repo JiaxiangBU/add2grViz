@@ -1,3 +1,5 @@
+# add2grViz 1.0.0
+
 * Added the functions of `subgraph`
 
 # add2grViz 0.0.0.9000
