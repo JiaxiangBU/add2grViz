@@ -6,6 +6,11 @@
 \usage{
 add_content_subgraph(text = "", name = "")
 }
+\arguments{
+\item{text}{text}
+
+\item{name}{name}
+}
 \description{
 Add the content inside the subgraph
 }

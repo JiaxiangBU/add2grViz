@@ -6,6 +6,13 @@
 \usage{
 add_heading(text = "", links = "", link_plus = "")
 }
+\arguments{
+\item{text}{text}
+
+\item{links}{links}
+
+\item{link_plus}{link_plus}
+}
 \description{
 Add the heading of the text
 }

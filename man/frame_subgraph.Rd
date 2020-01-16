@@ -6,6 +6,11 @@
 \usage{
 frame_subgraph(tag = "", block)
 }
+\arguments{
+\item{tag}{tag}
+
+\item{block}{block}
+}
 \description{
 Frame the subgraph
 }
